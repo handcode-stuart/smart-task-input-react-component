@@ -3,6 +3,7 @@ import { days, months, years } from "../validation/dates";
 
 class SmartTaskInput extends Component {
     state = {
+        name: "Stuart",
         date: {},
         task: "",
     };
@@ -25,15 +26,14 @@ class SmartTaskInput extends Component {
         const { value: task } = e.target;
         const taskArray = task.split(" ");
 
-        this.setState(prevState => ({
-            ...prevState,
+        this.setState({
             task,
             date: {
                 day: this.checkInputForDate(taskArray, days),
                 month: this.checkInputForDate(taskArray, months),
                 year: this.checkInputForDate(taskArray, years),
             },
-        }));
+        });
     };
 
     render() {
