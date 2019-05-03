@@ -40,10 +40,6 @@ class SmartTaskInput extends Component {
         }));
     };
 
-    setTaskDate = (inputtedDate, type) => {
-        this.setState(prevState => ({ date: { ...prevState.date, [type]: inputtedDate } }));
-    };
-
     render() {
         const { month, day, year } = this.state.date;
         const { task } = this.state;
