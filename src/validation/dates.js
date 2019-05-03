@@ -33,7 +33,7 @@ export const days = [
     "17th",
     "18th",
     "19th",
-    "'20th',",
+    "20th",
     "21st",
     "22nd",
     "23rd",
