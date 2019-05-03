@@ -11,12 +11,12 @@ class SmartTaskInput extends Component {
         };
     }
 
-    wasDateInputted = (taskArray, dateArray) => {
+    checkInputForDate = (taskArray, datesToSearch) => {
         let foundDate = null;
 
         taskArray.forEach(word => {
             const searchedWord = word.toLowerCase();
-            if (dateArray.indexOf(searchedWord) > -1) {
+            if (datesToSearch.indexOf(searchedWord) > -1) {
                 foundDate = searchedWord;
             }
         });
@@ -32,9 +32,9 @@ class SmartTaskInput extends Component {
         this.setState(prevState => ({
             date: {
                 ...prevState.date,
-                day: this.wasDateInputted(taskArray, days),
-                month: this.wasDateInputted(taskArray, months),
-                year: this.wasDateInputted(taskArray, years),
+                day: this.checkInputForDate(taskArray, days),
+                month: this.checkInputForDate(taskArray, months),
+                year: this.checkInputForDate(taskArray, years),
             },
             task,
         }));
