@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { months } from "../validation/dates";
+import { days, months } from "../validation/dates";
 
 class SmartTaskInput extends Component {
     constructor(props) {
@@ -11,32 +11,50 @@ class SmartTaskInput extends Component {
         };
     }
 
+    wasDateInputted = (taskArray, dateArray) => {
+        let foundDate = null;
+
+        taskArray.forEach(word => {
+            const searchedWord = word.toLowerCase();
+            if (dateArray.indexOf(searchedWord) > -1) {
+                foundDate = searchedWord;
+            }
+        });
+
+        return foundDate;
+    };
+
     onChange = e => {
         e.preventDefault();
         const { value: task } = e.target;
 
         const taskArray = task.split(" ");
 
-        let foundMonths = null;
-
-        taskArray.forEach(word => {
-            const searchedWord = word.toLowerCase();
-            if (months.indexOf(searchedWord) > -1) {
-                foundMonths = searchedWord;
-            }
-        });
-
+        const foundMonths = this.wasDateInputted(taskArray, months);
         this.setTaskDate(foundMonths);
+
+        const foundDays = this.wasDateInputted(taskArray, days);
+        this.setTaskDay(foundDays);
 
         this.setTaskToState(task);
     };
 
     setTaskToState = task => this.setState({ task });
 
-    setTaskDate = month => this.setState({ date: { month } });
+    setTaskDate = month => this.setState(prevState => ({ date: { ...prevState.date, month } }));
+
+    setTaskDay = day => this.setState(prevState => ({ date: { ...prevState.date, day } }));
 
     render() {
-        return <input type='text' value={this.state.task} onChange={this.onChange} />;
+        const { month, day } = this.state.date;
+        return (
+            <div>
+                <input type='text' value={this.state.task} onChange={this.onChange} />
+                <p>
+                    {day} {month}
+                </p>
+            </div>
+        );
     }
 }
 
